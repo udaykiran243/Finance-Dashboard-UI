@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Sora:wght@600;700&display=swap');
+
+:root {
+  --bg: #f3f8fb;
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-elevated: #ffffff;
+  --border: #c9d7e3;
+  --tone: #1f334a;
+  --tone-muted: #53738f;
+  --accent: #0f766e;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0f1824;
+  --surface: rgba(18, 30, 44, 0.9);
+  --surface-elevated: #203246;
+  --border: #2d455d;
+  --tone: #d8e6f4;
+  --tone-muted: #9db5ca;
+  --accent: #14b8a6;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Manrope', sans-serif;
+  color: var(--tone);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(14, 165, 233, 0.17), transparent 31%),
+    radial-gradient(circle at 84% 18%, rgba(245, 158, 11, 0.14), transparent 34%),
+    linear-gradient(160deg, #f4f9fd 0%, #e8f2fa 42%, #f7fbff 100%);
+  transition: background 260ms ease, color 260ms ease;
+}
+
+:root[data-theme='dark'] body {
+  background:
+    radial-gradient(circle at 15% 8%, rgba(20, 184, 166, 0.2), transparent 32%),
+    radial-gradient(circle at 85% 18%, rgba(56, 189, 248, 0.18), transparent 30%),
+    linear-gradient(160deg, #0c1420 0%, #132234 44%, #16283b 100%);
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Sora', sans-serif;
+}

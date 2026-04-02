@@ -85,7 +85,6 @@ const TransactionsTable = ({
                   >
                     {page}
                   </button>
-                  {page < totalPages && <span className="page-separator">,</span>}
                 </span>
               )
             })}

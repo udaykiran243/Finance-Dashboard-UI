@@ -1,11 +1,20 @@
+import CustomSelect from './CustomSelect'
+
 const RoleSwitcher = ({ role, onRoleChange }) => {
+  const roleOptions = [
+    { value: 'viewer', label: 'Viewer' },
+    { value: 'admin', label: 'Admin' },
+  ]
+
   return (
     <label className="role-switcher">
       Role
-      <select value={role} onChange={(event) => onRoleChange(event.target.value)}>
-        <option value="viewer">Viewer</option>
-        <option value="admin">Admin</option>
-      </select>
+      <CustomSelect
+        value={role}
+        options={roleOptions}
+        onChange={onRoleChange}
+        ariaLabel="Select role"
+      />
     </label>
   )
 }

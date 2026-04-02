@@ -1,4 +1,30 @@
+import CustomSelect from './CustomSelect'
+
 const TransactionControls = ({ filters, categories, hasInvalidDateRange, onChange, onReset }) => {
+  const typeOptions = [
+    { value: 'all', label: 'All types' },
+    { value: 'income', label: 'Income' },
+    { value: 'expense', label: 'Expense' },
+  ]
+
+  const categoryOptions = [
+    { value: 'all', label: 'All categories' },
+    ...categories.map((category) => ({ value: category, label: category })),
+  ]
+
+  const sortOptions = [
+    { value: 'date-desc', label: 'Newest first' },
+    { value: 'date-asc', label: 'Oldest first' },
+    { value: 'amount-desc', label: 'Highest amount' },
+    { value: 'amount-asc', label: 'Lowest amount' },
+  ]
+
+  const groupOptions = [
+    { value: 'none', label: 'No grouping' },
+    { value: 'category', label: 'Group by category' },
+    { value: 'month', label: 'Group by month' },
+  ]
+
   return (
     <>
       <div className="controls-grid">
@@ -9,30 +35,26 @@ const TransactionControls = ({ filters, categories, hasInvalidDateRange, onChang
           onChange={(event) => onChange('search', event.target.value)}
         />
 
-        <select value={filters.type} onChange={(event) => onChange('type', event.target.value)}>
-          <option value="all">All types</option>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
+        <CustomSelect
+          value={filters.type}
+          options={typeOptions}
+          onChange={(value) => onChange('type', value)}
+          ariaLabel="Filter by transaction type"
+        />
 
-        <select
+        <CustomSelect
           value={filters.category}
-          onChange={(event) => onChange('category', event.target.value)}
-        >
-          <option value="all">All categories</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+          options={categoryOptions}
+          onChange={(value) => onChange('category', value)}
+          ariaLabel="Filter by category"
+        />
 
-        <select value={filters.sortBy} onChange={(event) => onChange('sortBy', event.target.value)}>
-          <option value="date-desc">Newest first</option>
-          <option value="date-asc">Oldest first</option>
-          <option value="amount-desc">Highest amount</option>
-          <option value="amount-asc">Lowest amount</option>
-        </select>
+        <CustomSelect
+          value={filters.sortBy}
+          options={sortOptions}
+          onChange={(value) => onChange('sortBy', value)}
+          ariaLabel="Sort transactions"
+        />
 
         <input
           type="date"
@@ -64,11 +86,12 @@ const TransactionControls = ({ filters, categories, hasInvalidDateRange, onChang
           onChange={(event) => onChange('maxAmount', event.target.value)}
         />
 
-        <select value={filters.groupBy} onChange={(event) => onChange('groupBy', event.target.value)}>
-          <option value="none">No grouping</option>
-          <option value="category">Group by category</option>
-          <option value="month">Group by month</option>
-        </select>
+        <CustomSelect
+          value={filters.groupBy}
+          options={groupOptions}
+          onChange={(value) => onChange('groupBy', value)}
+          ariaLabel="Group transaction results"
+        />
 
         <button type="button" className="button-secondary" onClick={onReset}>
           Reset Filters

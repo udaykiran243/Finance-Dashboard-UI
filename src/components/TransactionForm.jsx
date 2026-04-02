@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import CustomSelect from './CustomSelect'
 
 const emptyTransaction = {
   date: '',
@@ -43,6 +44,12 @@ const TransactionForm = ({ categories, editingTransaction, onSave, onCancel }) =
     setFormData(emptyTransaction)
   }
 
+  const categoryOptions = categories.map((category) => ({ value: category, label: category }))
+  const typeOptions = [
+    { value: 'income', label: 'Income' },
+    { value: 'expense', label: 'Expense' },
+  ]
+
   return (
     <form className="transaction-form" onSubmit={handleSubmit}>
       <h3>{editingTransaction ? 'Edit Transaction' : 'Add Transaction'}</h3>
@@ -63,20 +70,18 @@ const TransactionForm = ({ categories, editingTransaction, onSave, onCancel }) =
           onChange={(event) => updateField('amount', event.target.value)}
           required
         />
-        <select
+        <CustomSelect
           value={formData.category}
-          onChange={(event) => updateField('category', event.target.value)}
-        >
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <select value={formData.type} onChange={(event) => updateField('type', event.target.value)}>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
+          options={categoryOptions}
+          onChange={(value) => updateField('category', value)}
+          ariaLabel="Choose transaction category"
+        />
+        <CustomSelect
+          value={formData.type}
+          options={typeOptions}
+          onChange={(value) => updateField('type', value)}
+          ariaLabel="Choose transaction type"
+        />
       </div>
 
       <input

@@ -106,6 +106,92 @@ button {
   padding: 0.55rem 0.72rem;
   background: var(--surface);
   color: var(--tone);
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.custom-select {
+  position: relative;
+  min-width: 0;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem;
+  font: inherit;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.72rem;
+  background: var(--surface-elevated);
+  color: var(--tone);
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.custom-select-trigger:hover {
+  border-color: var(--tone-muted);
+}
+
+.custom-select-chevron {
+  color: var(--tone-muted);
+  font-size: 0.8rem;
+}
+
+.custom-select-menu {
+  position: absolute;
+  top: calc(100% + 0.28rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-elevated);
+  box-shadow: 0 14px 28px rgba(9, 24, 44, 0.18);
+  z-index: 40;
+  max-height: 220px;
+  overflow: auto;
+}
+
+.custom-select-option {
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--tone);
+  padding: 0.45rem 0.55rem;
+  cursor: pointer;
+}
+
+.custom-select-option:hover {
+  background: rgba(15, 118, 110, 0.12);
+}
+
+.custom-select-option.is-selected {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.custom-select-trigger:focus-visible,
+input:focus-visible,
+button:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.2);
+}
+
+:root[data-theme='dark'] .custom-select-trigger:focus-visible,
+:root[data-theme='dark'] input:focus-visible,
+:root[data-theme='dark'] button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.24);
+}
+
+.role-switcher .custom-select {
+  min-width: 128px;
 }
 
 button {
@@ -323,11 +409,6 @@ button:hover {
   background: var(--accent);
   color: #ffffff;
   border-color: var(--accent);
-}
-
-.page-separator {
-  margin: 0 0.2rem;
-  color: var(--tone-muted);
 }
 
 table {

@@ -5,7 +5,7 @@ import InsightsPanel from './components/InsightsPanel'
 import LoadingPanel from './components/LoadingPanel'
 import SummaryCards from './components/SummaryCards'
 import TransactionsSection from './components/TransactionsSection'
-import useDashboardData from './hooks/useDashboardData'
+import { useDashboardContext } from './context/DashboardContext'
 import './App.css'
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
     setEditingTransaction,
     saveTransaction,
     isLoading,
-  } = useDashboardData()
+  } = useDashboardContext()
 
   if (isLoading) {
     return <LoadingPanel />

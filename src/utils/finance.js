@@ -31,24 +31,33 @@ export const getSummary = (transactions) => {
 
 export const getTrendData = (transactions) => {
   const monthly = transactions.reduce((acc, item) => {
-    const month = toMonthLabel(item.date)
+    const date = new Date(item.date)
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
 
-    if (!acc[month]) {
-      acc[month] = { month, income: 0, expenses: 0, net: 0 }
+    if (!acc[monthKey]) {
+      acc[monthKey] = {
+        monthKey,
+        month: date.toLocaleDateString('en-US', { month: 'short' }),
+        income: 0,
+        expenses: 0,
+        net: 0,
+      }
     }
 
     if (item.type === 'income') {
-      acc[month].income += item.amount
+      acc[monthKey].income += item.amount
     } else {
-      acc[month].expenses += item.amount
+      acc[monthKey].expenses += item.amount
     }
 
-    acc[month].net = acc[month].income - acc[month].expenses
+    acc[monthKey].net = acc[monthKey].income - acc[monthKey].expenses
 
     return acc
   }, {})
 
   return Object.values(monthly)
+    .sort((a, b) => a.monthKey.localeCompare(b.monthKey))
+    .map(({ monthKey, ...row }) => row)
 }
 
 export const getCategoryBreakdown = (transactions) => {

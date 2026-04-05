@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 const downloadFile = (content, fileName, type) => {
   const blob = new Blob([content], { type })
   const url = URL.createObjectURL(blob)
@@ -19,6 +21,7 @@ const toCsv = (rows) => {
 
 const ExportActions = ({ rows }) => {
   const hasRows = rows.length > 0
+  const { t } = useTranslation()
 
   const exportCsv = () => {
     if (!hasRows) {
@@ -43,18 +46,18 @@ const ExportActions = ({ rows }) => {
         className="button-secondary"
         onClick={exportCsv}
         disabled={!hasRows}
-        title={hasRows ? 'Export filtered rows as CSV' : 'No rows available to export'}
+        title={hasRows ? t('export.csvTitle') : t('export.noRows')}
       >
-        Export CSV
+        {t('export.csv')}
       </button>
       <button
         type="button"
         className="button-secondary"
         onClick={exportJson}
         disabled={!hasRows}
-        title={hasRows ? 'Export filtered rows as JSON' : 'No rows available to export'}
+        title={hasRows ? t('export.jsonTitle') : t('export.noRows')}
       >
-        Export JSON
+        {t('export.json')}
       </button>
     </div>
   )

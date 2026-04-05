@@ -1,13 +1,21 @@
+let currentLanguage = 'en-US';
+let currentCurrency = 'USD';
+
+export const setFinanceConfig = (lang, curr) => {
+  currentLanguage = lang;
+  currentCurrency = curr;
+};
+
 export const formatCurrency = (value) =>
-  new Intl.NumberFormat('en-US', {
+  new Intl.NumberFormat(currentLanguage, {
     style: 'currency',
-    currency: 'USD',
+    currency: currentCurrency,
     maximumFractionDigits: 0,
-  }).format(value)
+  }).format(value);
 
 export const toMonthLabel = (dateString) => {
   const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { month: 'short' })
+  return date.toLocaleDateString(currentLanguage, { month: 'short' })
 }
 
 export const getSummary = (transactions) => {
@@ -37,7 +45,7 @@ export const getTrendData = (transactions) => {
     if (!acc[monthKey]) {
       acc[monthKey] = {
         monthKey,
-        month: date.toLocaleDateString('en-US', { month: 'short' }),
+        month: date.toLocaleDateString(currentLanguage, { month: 'short' }),
         income: 0,
         expenses: 0,
         net: 0,

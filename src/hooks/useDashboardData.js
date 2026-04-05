@@ -4,13 +4,17 @@ import {
   getInsights,
   getSummary,
   getTrendData,
+  setFinanceConfig,
 } from '../utils/finance'
 import { fetchTransactions } from '../services/mockApi'
+import { useTranslation } from 'react-i18next'
 
 const STORAGE_KEY = 'finance-dashboard-transactions'
 const ROLE_KEY = 'finance-dashboard-role'
 const THEME_KEY = 'finance-dashboard-theme'
 const FILTER_KEY = 'finance-dashboard-filters'
+const LOCALE_KEY = 'finance-dashboard-locale'
+const CURRENCY_KEY = 'finance-dashboard-currency'
 
 const DEFAULT_FILTERS = {
   search: '',
@@ -42,9 +46,13 @@ const getStoredTransactions = () => {
 }
 
 export default function useDashboardData() {
+  const { i18n } = useTranslation()
   const storedTransactions = useMemo(() => getStoredTransactions(), [])
   const [role, setRole] = useState(() => localStorage.getItem(ROLE_KEY) || 'viewer')
   const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || 'light')
+  const [language, setLanguage] = useState(() => localStorage.getItem(LOCALE_KEY) || 'en')
+  const [currency, setCurrency] = useState(() => localStorage.getItem(CURRENCY_KEY) || 'USD')
+  
   const [filters, setFilters] = useState(() => {
     const saved = localStorage.getItem(FILTER_KEY)
 
@@ -62,6 +70,26 @@ export default function useDashboardData() {
   const [editingTransaction, setEditingTransaction] = useState(null)
   const [transactions, setTransactions] = useState(() => storedTransactions || [])
   const [isLoading, setIsLoading] = useState(() => !storedTransactions)
+
+  // Configure i18n & finance util globals
+  useEffect(() => {
+    localStorage.setItem(LOCALE_KEY, language)
+    localStorage.setItem(CURRENCY_KEY, currency)
+    
+    // Map short lang codes to locales for Intl
+    const locales = {
+      'en': 'en-US',
+      'es': 'es-ES',
+      'fr': 'fr-FR',
+      'hi': 'hi-IN'
+    };
+    
+    i18n.changeLanguage(language);
+    setFinanceConfig(locales[language] || 'en-US', currency);
+    
+    // Trigger re-render of transactions to update formatted numbers
+    setTransactions(prev => [...prev]);
+  }, [language, currency, i18n])
 
   useEffect(() => {
     if (!isLoading) {
@@ -225,5 +253,9 @@ export default function useDashboardData() {
     setEditingTransaction,
     saveTransaction,
     isLoading,
+    language,
+    setLanguage,
+    currency,
+    setCurrency,
   }
 }

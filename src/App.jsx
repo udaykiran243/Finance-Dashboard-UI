@@ -101,7 +101,7 @@ function App() {
             />
           </motion.div>
 
-          <div id="settings" className="grid grid-cols-1 lg:grid-cols-2 gap-10 scroll-mt-32">
+          <div id="settings" className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start scroll-mt-32">
             <motion.div
               initial={{ x: -40, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}

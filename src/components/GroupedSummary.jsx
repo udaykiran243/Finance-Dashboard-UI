@@ -47,7 +47,7 @@ const GroupedSummary = ({ rows, groupBy }) => {
       initial="hidden"
       animate="show"
       variants={container}
-      className="p-8 rounded-3xl bg-white/70 dark:bg-slate-800/80 backdrop-blur-xl border border-[#c9d7e3]/40 dark:border-slate-700/50 shadow-xl h-full flex flex-col"
+      className="p-8 rounded-3xl bg-white/70 dark:bg-slate-800/80 backdrop-blur-xl border border-[#c9d7e3]/40 dark:border-slate-700/50 shadow-xl h-auto flex flex-col"
     >
       <h3 className="text-2xl font-bold flex items-center gap-3 text-slate-800 dark:text-slate-100 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700 capitalize">
         <Layers className="text-blue-500 w-6 h-6" /> {t('grouped.by')} {groupBy === 'month' ? t('controls.groupByMonth').replace(t('grouped.by'), '').trim() : t('controls.groupByCategory').replace(t('grouped.by'), '').trim() || groupBy}
